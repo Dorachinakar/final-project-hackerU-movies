@@ -1,0 +1,11 @@
+{
+  "name": "back-end-node",
+  "version": "1.0.0",
+  "description": "movies website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
