@@ -4,8 +4,8 @@ function Home() {
   return (
     <>
       <PageHeader
-        title={"now u are home"}
-        description={"here us can find evry think about me and me website"}
+        title={"the best movie site ever"}
+        description={"here u can find any movie u want in just one click!!!"}
       ></PageHeader>
     </>
   );
