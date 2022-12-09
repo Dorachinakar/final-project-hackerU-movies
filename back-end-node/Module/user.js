@@ -26,7 +26,6 @@ userSchema.methods.userValidate = function () {
     email: Joi.string().email({ tlds: { allow: false } }),
     password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
     favorite: Joi.required(),
-
     phone: Joi.string().required(),
   });
   return userValidate;

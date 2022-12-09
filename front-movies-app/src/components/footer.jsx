@@ -1,8 +1,8 @@
 function Footer() {
   return (
     <>
-      <div className="container">
-        <footer className="py-5">
+      <div className="container ">
+        <footer>
           <div className="row">
             <div className="col-2">
               <h5>Section</h5>
@@ -119,7 +119,7 @@ function Footer() {
             </div>
           </div>
 
-          <div className="d-flex justify-content-between py-4 my-4 border-top">
+          <div className="d-flex justify-content-between border-top">
             <p>© 2021 Company, Inc. All rights reserved.</p>
             <ul className="list-unstyled d-flex">
               <li className="ms-3">
