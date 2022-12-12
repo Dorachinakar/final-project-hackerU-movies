@@ -26,7 +26,10 @@ userSchema.methods.userValidate = function () {
     email: Joi.string().email({ tlds: { allow: false } }),
     password: Joi.string().required(),
     // favorite: Joi.required(),
-    phone: Joi.string().required(),
+    phone: Joi.string()
+      .length(10)
+      .pattern(/^[0-9]+$/)
+      .required(),
   });
   return userValidate;
 };

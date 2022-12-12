@@ -7,6 +7,7 @@ import Input from "../common/input";
 import { userSignUp } from "../../service/userService";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
+
 function SignUp({ redirect }) {
   const { user, login } = useAuth();
   const navigate = useNavigate();
@@ -39,10 +40,6 @@ function SignUp({ redirect }) {
         }
       } catch ({ response }) {
         if (response.status === 400) {
-          // if (response.data.details[0].path[0] === "password") {
-          //   setError("the password must include a letter and upper case letter and a number");
-          // }
-
           setError(response.data.details[0].message);
         }
       }
@@ -64,10 +61,10 @@ function SignUp({ redirect }) {
           error={form.touched.firstName && form.errors.firstName}
         />
         <Input
+          error={form.touched.lastName && form.errors.lastName}
           type="lastName"
           label="lastName"
           {...form.getFieldProps("lastName")}
-          error={form.touched.lastName && form.errors.lastName}
         />
         <Input
           type="phone"

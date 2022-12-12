@@ -9,7 +9,7 @@ function signUpUser(user) {
     if (error) reject(error);
     else {
       const regex = new RegExp(
-        "^(?=.*?[A-Z])(?=.*?[a-z])(?=(.*?[0-9]){4})(?=.*?[#?!@$%^&*-]).{9,9}$"
+        "^(?=.*?[A-Z])(?=.*?[a-z])(?=(.*?[0-9]){4})(?=.*?[#?!@$%^&*-]).{7,18}$"
       );
       let statusRegex = regex.test(newUser.password);
       if (statusRegex) {
@@ -35,7 +35,7 @@ function signUpUser(user) {
           details: [
             {
               message:
-                "password must includes small and camel letters,4digits,lenght:9,and one !@#$%^&*",
+                "password must includes small and camel letters,4 digits,length: 7 - 18, and one !@#$%^&*",
             },
           ],
         });

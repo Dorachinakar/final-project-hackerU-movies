@@ -1,3 +1,4 @@
+import classNames from "classnames";
 function Input({ label, name, error, ...rest }) {
   return (
     <>
@@ -7,7 +8,7 @@ function Input({ label, name, error, ...rest }) {
           {...rest}
           id={name}
           name={name}
-          //   className={classNames("form-control", { "is-invalid": error })}
+          className={classNames("form-control", { "is-invalid": error })}
         />
         <span className="invalid-feedback">{error}</span>
       </div>
