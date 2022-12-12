@@ -4,14 +4,21 @@ import joi from "joi";
 import FormikValidate from "../utils/FormikValidate";
 import PageHeader from "../common/pageHeader";
 import Input from "../common/input";
+import { userSignUp } from "../../service/userService";
+import { useNavigate, Navigate } from "react-router-dom";
+import { useAuth } from "../../context/authContext";
 function SignUp({ redirect }) {
+  const { user, login } = useAuth();
+  const navigate = useNavigate();
   const [error, setError] = useState("");
   const form = useFormik({
     validateOnMount: true,
     initialValues: {
       email: "",
+      firstName: "",
+      lastName: "",
       password: "",
-      name: "",
+      phone: "",
     },
     validate: FormikValidate({
       firstName: joi.string().min(2).max(30).required(),
@@ -21,10 +28,30 @@ function SignUp({ redirect }) {
         .string()
         .required()
         .email({ tlds: { allow: false } }),
-      password: joi.string().required().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")),
-      name: joi.string().required(),
+      password: joi.string().required(),
     }),
+    async onSubmit(values) {
+      try {
+        await userSignUp({ ...values });
+        await login({ email: values.email, password: values.password });
+        if (redirect) {
+          navigate(redirect);
+        }
+      } catch ({ response }) {
+        if (response.status === 400) {
+          // if (response.data.details[0].path[0] === "password") {
+          //   setError("the password must include a letter and upper case letter and a number");
+          // }
+
+          setError(response.data.details[0].message);
+        }
+      }
+    },
   });
+  if (user) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <>
       <PageHeader title={"sign up to the best movie site ever"} />
@@ -61,8 +88,8 @@ function SignUp({ redirect }) {
           error={form.touched.password && form.errors.password}
         />
         <div className="button-place">
-          <button disabled={!form.isValid} className="btn btn-primary">
-            Sign In
+          <button type="submit" className="btn btn-primary">
+            Sign up
           </button>
         </div>
       </form>
@@ -71,36 +98,3 @@ function SignUp({ redirect }) {
 }
 
 export default SignUp;
-// function SignUp({ redirect }) {
-//   const navigate = useNavigate();
-//   const { user } = useAuth();
-//   const [error, setError] = useState("");
-//
-//     async onSubmit(values) {
-//       try {
-//         await createUser({ ...values, cards: [], isVip: false });
-//         if (redirect) {
-//           navigate(redirect);
-//         }
-//       } catch ({ response }) {
-//         if (response.status === 400) {
-//           setError(response.data);
-//         }
-//       }
-//     },
-//   });
-//   if (user) {
-//     return <Navigate to="/" />;
-//   }
-//
-
-// import { useFormik } from "formik";
-// import joi from "joi";
-// import { useState } from "react";
-// import Input from "./common/input";
-// import PageHeader from "./common/pageHeader";
-// import FormikValidateJoi from "../utils/formikUsingJoi";
-// import { createUser } from "../service/userService";
-// import { useNavigate, Navigate } from "react-router-dom";
-// // import { toast } from "react-toastify";
-// import { useAuth } from "../context/authContext";

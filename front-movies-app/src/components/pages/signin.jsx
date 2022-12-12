@@ -4,7 +4,12 @@ import PageHeader from "../common/pageHeader";
 import Input from "../common/input";
 import joi from "joi";
 import FormikValidate from "../utils/FormikValidate";
+import { useAuth } from "../../context/authContext";
+import { useNavigate } from "react-router-dom";
+
 function SignIn({ redirect }) {
+  const { user, login } = useAuth();
+  const navigate = useNavigate();
   const [error, setError] = useState("");
   const form = useFormik({
     validateOnMount: true,
@@ -21,6 +26,19 @@ function SignIn({ redirect }) {
         .email({ tlds: { allow: false } }),
       password: joi.string().min(6).max(1024).required(),
     }),
+    async onSubmit(values) {
+      try {
+        await login({ ...values });
+
+        if (redirect) {
+          navigate(redirect);
+        }
+      } catch ({ response }) {
+        if (response.status === 400) {
+          setError(response.data);
+        }
+      }
+    },
   });
   return (
     <>
@@ -41,7 +59,7 @@ function SignIn({ redirect }) {
           error={form.touched.password && form.errors.password}
         />
         <div className="button-place">
-          <button disabled={!form.isValid} className="btn btn-primary">
+          <button type="submit" disabled={!form.isValid} className="btn btn-primary">
             Sign In
           </button>
         </div>
@@ -51,52 +69,3 @@ function SignIn({ redirect }) {
 }
 
 export default SignIn;
-
-// // import { useAuth } from "../context/auth.context";
-
-// // const SignIn = ({ redirect }) => {
-// //   const [error, setError] = useState("");
-// //   const { user, login } = useAuth();
-// //   const navigate = useNavigate();
-
-// import { useState } from "react";
-// import Input from "./common/input";
-// import PageHeader from "./common/pageHeader";
-// import { useFormik } from "formik";
-// import joi from "joi";
-// import FormikValidateJoi from "../utils/formikUsingJoi";
-// import { useNavigate } from "react-router-dom";
-// import { useAuth } from "../context/authContext";
-
-// function SignIn({ redirect }) {
-//   const { user, login } = useAuth();
-//   const [error, setError] = useState("");
-//   const navigate = useNavigate();
-//   const form = useFormik({
-//     validateOnMount: true,
-//     initialValues: {
-//       email: "",
-//       password: "",
-//     },
-//     validate: FormikValidateJoi({
-//       email: joi
-//         .string()
-//         .min(6)
-//         .max(225)
-//         .required()
-//         .email({ tlds: { allow: false } }),
-//       password: joi.string().min(6).max(1024).required(),
-//     }),
-//     async onSubmit(values) {
-//       try {
-//         await login(values);
-//         if (redirect) {
-//           navigate(redirect);
-//         }
-//       } catch ({ response }) {
-//         if (response.status === 400) {
-//           setError(response.data);
-//         }
-//       }
-//     },
-//   });

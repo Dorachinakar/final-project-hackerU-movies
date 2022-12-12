@@ -1,6 +1,8 @@
 import { Navbar, Button, Form, Nav, Container } from "react-bootstrap";
 import { Link, Route, Routes, NavLink } from "react-router-dom";
+import { useAuth } from "../context/authContext";
 function Header() {
+  const { user } = useAuth();
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -14,17 +16,26 @@ function Header() {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <Link className="nav-link" to={"/signin"}>
-                Sign in
-              </Link>
-            </li>
-
-            <li className="nav-item">
-              <Link className="nav-link" to={"signup"}>
-                Sign up
-              </Link>
-            </li>
+            {user ? (
+              <li className="nav-item">
+                <NavLink to="logout" className="nav-link">
+                  Sign Out
+                </NavLink>
+              </li>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to={"/signin"}>
+                    Sign in
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to={"signup"}>
+                    Sign up
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
           <form className="form my-2 my-lg-0">
             <input

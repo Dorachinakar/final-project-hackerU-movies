@@ -1,21 +1,48 @@
 const User = require("../Module/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+
 function signUpUser(user) {
   return new Promise(async (resolve, reject) => {
     const newUser = new User(user);
     const { error, value } = newUser.userValidate().validate(user);
     if (error) reject(error);
     else {
-      await newUser.hashPassword();
-      newUser
-        .save()
-        .then((user) => resolve(user))
-        .catch((err) => reject(err));
+      const regex = new RegExp(
+        "^(?=.*?[A-Z])(?=.*?[a-z])(?=(.*?[0-9]){4})(?=.*?[#?!@$%^&*-]).{9,9}$"
+      );
+      let statusRegex = regex.test(newUser.password);
+      if (statusRegex) {
+        await newUser.hashPassword();
+        newUser
+          .save()
+          .then((user) => resolve(user))
+          .catch((err) => {
+            if (err.message) {
+              reject({
+                details: [
+                  {
+                    message: "this email is allready in the system",
+                  },
+                ],
+              });
+            } else {
+              reject(err);
+            }
+          });
+      } else {
+        reject({
+          details: [
+            {
+              message:
+                "password must includes small and camel letters,4digits,lenght:9,and one !@#$%^&*",
+            },
+          ],
+        });
+      }
     }
   });
 }
-
 function signInUser(user) {
   return new Promise(async (resolve, reject) => {
     const { email, password } = user;
@@ -27,7 +54,7 @@ function signInUser(user) {
       if (loginByEmail && (await bcrypt.compare(password, loginByEmail.password))) {
         const token = await createToken(loginByEmail);
         resolve(token);
-      } else res.status(400).send("Invalid Credentials  !! Check your email and password please!!");
+      } else reject("Invalid Credentials  !! Check your email and password please!!");
     } catch (err) {
       reject(err);
     }

@@ -10,13 +10,13 @@ const userSchema = new Schema(
     email: { type: String, required: "The field email is a required field!", unique: true },
     phone: { type: String, required: "The field phone is a required field!" },
     password: { type: String, required: "The field password is a required field!" },
-    favorite: { type: [String] },
     isAdmin: {
       type: Boolean,
       default: false,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
+  { typeKey: "$type" }
 );
 
 userSchema.methods.userValidate = function () {
@@ -24,8 +24,8 @@ userSchema.methods.userValidate = function () {
     firstName: Joi.string().required().min(2).max(30),
     lastName: Joi.string().required().min(2).max(50),
     email: Joi.string().email({ tlds: { allow: false } }),
-    password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
-    favorite: Joi.required(),
+    password: Joi.string().required(),
+    // favorite: Joi.required(),
     phone: Joi.string().required(),
   });
   return userValidate;

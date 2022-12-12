@@ -8,9 +8,9 @@ const auth = require("../auth/auth");
 
 const { signUpUser, signInUser, createToken } = require("../controllers/user");
 
-router.post("/signup", auth, (req, res) => {
-  let { firstName, lastName, email, phone, password, favorite } = req.body;
-  let user = { firstName, lastName, email, phone, password, favorite };
+router.post("/signup", (req, res) => {
+  let { firstName, lastName, email, phone, password } = req.body;
+  let user = { firstName, lastName, email, phone, password };
   signUpUser(user)
     .then((user) => res.status(200).json(user))
     .catch((err) => res.status(400).json(err));
@@ -20,7 +20,7 @@ router.post("/signin", async (req, res) => {
   const { email, password } = req.body;
   signInUser({ email, password })
     .then((token) => res.status(200).json(token))
-    .catch((err) => res.status(401).json(err));
+    .catch((err) => res.status(400).send(err));
 });
 
 module.exports = router;

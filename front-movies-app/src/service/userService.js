@@ -1,8 +1,8 @@
-import httpService, { setCommonHeader } from "./httpService";
+import httpService from "./httpService";
 import jwtDecode from "jwt-decode";
 const TOKEN_KEY = "token";
 
-//setTokenHeader();
+setTokenHeader();
 function setTokenHeader() {
   httpService.setCommonHeader("x-access-token", getJWT());
 }

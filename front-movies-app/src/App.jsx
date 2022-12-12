@@ -8,6 +8,7 @@ import Home from "./components/pages/home";
 import About from "./components/pages/about";
 import SignIn from "./components/pages/signin";
 import SignUp from "./components/pages/signup";
+import Logout from "./components/pages/logout";
 function App() {
   return (
     <div className="App d-flex flex-column min-vh-100">
@@ -18,8 +19,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signin" element={<SignIn redirect="/" />} />
+          <Route path="/signup" element={<SignUp redirect="/" />} />
+          <Route path="/logout" element={<Logout redirect="/signin" />} />
         </Routes>
       </main>
       <footer>
