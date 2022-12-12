@@ -9,6 +9,7 @@ import About from "./components/pages/about";
 import SignIn from "./components/pages/signin";
 import SignUp from "./components/pages/signup";
 import Logout from "./components/pages/logout";
+import Movies from "./components/common/movies";
 function App() {
   return (
     <div className="App d-flex flex-column min-vh-100">
@@ -22,6 +23,7 @@ function App() {
           <Route path="/signin" element={<SignIn redirect="/" />} />
           <Route path="/signup" element={<SignUp redirect="/" />} />
           <Route path="/logout" element={<Logout redirect="/signin" />} />
+          <Route path="/movies" element={<Movies />} />
         </Routes>
       </main>
       <footer>
