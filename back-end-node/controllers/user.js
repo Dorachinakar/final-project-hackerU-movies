@@ -65,9 +65,33 @@ const createToken = (user) => {
     expiresIn: "31111m",
   });
 };
+function addFavMovie(card, userId) {
+  return new Promise(async (resolve, reject) => {
+    const user = await User.findById(userId);
+    if (user) {
+      user.favorite.push(card);
+      user.save();
+      resolve(card);
+    } else {
+      reject("no card to save");
+    }
+  });
+}
+function getAllFavorite(userId) {
+  return new Promise(async (resolve, reject) => {
+    const user = await User.findById(userId);
+    if (user) {
+      resolve(user.favorite);
+    } else {
+      reject("plz sign in first");
+    }
+  });
+}
 
 module.exports = {
   signUpUser,
   signInUser,
   createToken,
+  addFavMovie,
+  getAllFavorite,
 };

@@ -1,9 +1,16 @@
 import React from "react";
+import { favToDB } from "../../service/favServics";
 
-const AddFavourites = () => {
+const AddFavourites = (props) => {
+  const { movie } = props;
+  async function addToFavorite(movie) {
+    await favToDB(movie);
+  }
   return (
     <>
-      <span className="mr-2">Add to Favourites</span>
+      <span onClick={() => addToFavorite(movie.Title)} className="mr-2 text-white">
+        Add to Favourites
+      </span>
       <svg
         width="1em"
         height="1em"
