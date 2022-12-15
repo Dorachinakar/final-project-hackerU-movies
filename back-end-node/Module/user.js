@@ -14,6 +14,7 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    favorite: Array,
   },
   { timestamps: true },
   { typeKey: "$type" }

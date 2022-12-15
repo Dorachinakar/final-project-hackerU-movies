@@ -6,7 +6,7 @@ const express = require("express"),
 const router = express.Router();
 const auth = require("../auth/auth");
 
-const { signUpUser, signInUser, createToken } = require("../controllers/user");
+const { signUpUser, signInUser, addFavMovie, getAllFavorite } = require("../controllers/user");
 
 router.post("/signup", (req, res) => {
   let { firstName, lastName, email, phone, password } = req.body;
@@ -20,6 +20,17 @@ router.post("/signin", async (req, res) => {
   const { email, password } = req.body;
   signInUser({ email, password })
     .then((token) => res.status(200).json(token))
+    .catch((err) => res.status(400).send(err));
+});
+router.post("/favorite", auth, async (req, res) => {
+  const title = req.body;
+  addFavMovie(Object.keys(title)[0], req.user_id)
+    .then((user) => res.status(200).json(user))
+    .catch((err) => res.status(400).send(err));
+});
+router.get("/getallfavorite", auth, async (req, res) => {
+  getAllFavorite(req.user_id)
+    .then((user) => res.status(200).json(user))
     .catch((err) => res.status(400).send(err));
 });
 

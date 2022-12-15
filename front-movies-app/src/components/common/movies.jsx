@@ -4,7 +4,7 @@ import MovieList from "../pages/movielist";
 import MovieListHeading from "./movieHeading";
 import Search from "./search";
 import RemoveFavourites from "./RemoveFavourites";
-import "../../App.css";
+
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [searchValue, setSearchValue] = useState("");

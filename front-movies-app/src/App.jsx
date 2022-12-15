@@ -1,15 +1,16 @@
-import logo from "./logo.svg";
 import "./App.css";
+import ProtectedRoute from "./components/common/routhProtected";
 import Footer from "./components/footer";
 import Header from "./components/header";
 import React from "react";
-import { Router, Route, Link, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "./components/pages/home";
 import About from "./components/pages/about";
 import SignIn from "./components/pages/signin";
 import SignUp from "./components/pages/signup";
 import Logout from "./components/pages/logout";
 import Movies from "./components/common/movies";
+import Favorite from "./components/pages/favorite";
 function App() {
   return (
     <div className="App d-flex flex-column min-vh-100">
@@ -23,7 +24,23 @@ function App() {
           <Route path="/signin" element={<SignIn redirect="/" />} />
           <Route path="/signup" element={<SignUp redirect="/" />} />
           <Route path="/logout" element={<Logout redirect="/signin" />} />
-          <Route path="/movies" element={<Movies />} />
+
+          <Route
+            path="/movies"
+            element={
+              <ProtectedRoute>
+                <Movies />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/favorite"
+            element={
+              <ProtectedRoute>
+                <Favorite />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </main>
       <footer>

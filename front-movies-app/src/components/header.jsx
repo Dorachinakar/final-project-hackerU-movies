@@ -17,11 +17,23 @@ function Header() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto">
             {user ? (
-              <li className="nav-item">
-                <NavLink to="logout" className="nav-link">
-                  Sign Out
-                </NavLink>
-              </li>
+              <>
+                <li className="nav-item">
+                  <NavLink to="movies" className="nav-link">
+                    movies
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to="favorite" className="nav-link">
+                    Favorite
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to="logout" className="nav-link">
+                    Sign Out
+                  </NavLink>
+                </li>
+              </>
             ) : (
               <>
                 <li className="nav-item">

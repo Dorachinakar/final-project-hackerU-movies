@@ -1,13 +1,3 @@
-body {
-  background: #141414;
-  color: #ffffff;
-}
-/* .movie-app {
-  flex-direction: row;
-  display: flex;
-  flex-wrap: nowrap;
-  grid-auto-flow: row;
-} */
 .movie-app > .row {
   overflow-x: auto;
   flex-wrap: nowrap;
@@ -16,6 +6,7 @@ body {
 .image-container {
   position: relative;
   transition: transform 0.2s;
+  width: 300px !important;
 }
 
 .image-container:hover {
