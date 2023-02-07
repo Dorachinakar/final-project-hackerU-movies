@@ -87,6 +87,7 @@ function getAllFavorite(userId) {
     }
   });
 }
+// function deleteFromFav(userId) {}
 
 module.exports = {
   signUpUser,

@@ -34,7 +34,7 @@ function Favorite() {
 
       <div className="row">
         {movies.map((movie) => (
-          <FavoriteChiled movie={movie} />
+          <FavoriteChiled key={movie.imdbID} movie={movie} />
         ))}
       </div>
     </>

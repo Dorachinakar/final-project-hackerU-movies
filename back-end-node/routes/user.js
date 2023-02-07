@@ -33,5 +33,10 @@ router.get("/getallfavorite", auth, async (req, res) => {
     .then((user) => res.status(200).json(user))
     .catch((err) => res.status(400).send(err));
 });
+// router.delete("/delete", auth, async (req, res) => {
+//   deleteFromFav(req.user_id, fav)
+//     .then((user) => res.status(200).json(user))
+//     .catch((err) => res.status(400).send(err));
+// });
 
 module.exports = router;
