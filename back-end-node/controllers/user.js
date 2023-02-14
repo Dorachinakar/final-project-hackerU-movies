@@ -87,6 +87,22 @@ function getAllFavorite(userId) {
     }
   });
 }
+function deleteFromFav(userId, favorite) {
+  return new Promise(async (resolve, reject) => {
+    const user = await User.findById(userId);
+
+    if (user) {
+      const titleToDelete = user.favorite.filter(function (e) {
+        return e !== favorite;
+      });
+      user.favorite = titleToDelete;
+      user.save();
+      resolve(user);
+    } else {
+      reject("no card to delete");
+    }
+  });
+}
 
 module.exports = {
   signUpUser,
@@ -94,4 +110,5 @@ module.exports = {
   createToken,
   addFavMovie,
   getAllFavorite,
+  deleteFromFav,
 };
