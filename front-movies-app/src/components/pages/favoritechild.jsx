@@ -1,10 +1,22 @@
-function FavoriteChiled({ movie }) {
-  console.log(movie);
+function FavoriteChiled({ movie, removeFav }) {
+  function refreshPage() {
+    window.location.reload(false);
+  }
   return (
     <>
       {
-        <div key={movie.imdbID} className="image-container d-flex justify-content-start m-3">
+        <div key={movie.imdbID} className="image-container d-flex m-3">
           <img src={movie.Poster} alt="movie"></img>
+
+          <button
+            className="delete-favorite"
+            onClick={() => {
+              removeFav(movie.Title);
+              refreshPage();
+            }}
+          >
+            delete from favorite
+          </button>
         </div>
       }
     </>

@@ -29,3 +29,24 @@
   padding: 20px;
   text-align: center;
 }
+button.delete-favorite {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+button.delete-favorite:hover {
+  background-color: #741233;
+}
+
+.image-container {
+  flex-direction: column;
+  align-items: center;
+}

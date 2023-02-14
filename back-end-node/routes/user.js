@@ -6,7 +6,13 @@ const express = require("express"),
 const router = express.Router();
 const auth = require("../auth/auth");
 
-const { signUpUser, signInUser, addFavMovie, getAllFavorite } = require("../controllers/user");
+const {
+  signUpUser,
+  deleteFromFav,
+  signInUser,
+  addFavMovie,
+  getAllFavorite,
+} = require("../controllers/user");
 
 router.post("/signup", (req, res) => {
   let { firstName, lastName, email, phone, password } = req.body;
@@ -33,10 +39,11 @@ router.get("/getallfavorite", auth, async (req, res) => {
     .then((user) => res.status(200).json(user))
     .catch((err) => res.status(400).send(err));
 });
-// router.delete("/delete", auth, async (req, res) => {
-//   deleteFromFav(req.user_id, fav)
-//     .then((user) => res.status(200).json(user))
-//     .catch((err) => res.status(400).send(err));
-// });
+router.patch("/delete", auth, async (req, res) => {
+  const title = req.body;
+  deleteFromFav(req.user_id, Object.keys(title)[0])
+    .then((user) => res.status(200).json(user))
+    .catch((err) => res.status(400).send(err));
+});
 
 module.exports = router;
