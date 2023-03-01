@@ -29,6 +29,11 @@ function Header() {
                   </NavLink>
                 </li>
                 <li className="nav-item">
+                  <NavLink to="my-notes" className="nav-link">
+                    my Notes
+                  </NavLink>
+                </li>
+                <li className="nav-item">
                   <NavLink to="logout" className="nav-link">
                     Sign Out
                   </NavLink>

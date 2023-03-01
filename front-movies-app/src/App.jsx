@@ -11,6 +11,9 @@ import SignUp from "./components/pages/signup";
 import Logout from "./components/pages/logout";
 import Movies from "./components/common/movies";
 import Favorite from "./components/pages/favorite";
+import CreateNote from "./components/cardFolder/createNote";
+import MyNotes from "./components/pages/myNotes";
+import DeleteNote from "./components/cardFolder/deleteNote";
 function App() {
   return (
     <div className="App d-flex flex-column min-vh-100">
@@ -24,7 +27,9 @@ function App() {
           <Route path="/signin" element={<SignIn redirect="/" />} />
           <Route path="/signup" element={<SignUp redirect="/" />} />
           <Route path="/logout" element={<Logout redirect="/signin" />} />
-
+          <Route path="/my-notes/delete/:id" element={<DeleteNote />} />
+          <Route path="my-notes" element={<MyNotes />} />
+          <Route path="my-notes/create-note" element={<CreateNote />} />
           <Route
             path="/movies"
             element={

@@ -14,9 +14,11 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    notes: Array,
     favorite: Array,
   },
   { timestamps: true },
+
   { typeKey: "$type" }
 );
 
@@ -39,3 +41,12 @@ userSchema.methods.hashPassword = async function () {
 };
 
 module.exports = mongoose.model("User", userSchema, "users");
+
+function validateNotes(data) {
+  const schema = Joi.object({
+    notes: Joi.array().min(1).required(),
+  });
+
+  return schema.validate(data);
+}
+exports.validateNotes = validateNotes;
